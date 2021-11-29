@@ -1,0 +1,39 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+<% block title %> Post <% endblock title %>
+
+{%block content%}
+    <h1> Все посты </h1>
+    {% if posts %}
+        <table>
+            <tr>
+            <td width="25%">
+                Название
+              </td>
+            <td width="25%">
+                Дата
+            </td>
+            <td width="50%">
+                Текст
+            </td>
+            </tr>
+            {% for post in posts %}
+                <tr>
+                <td>
+                    {{post.title}}
+                </td>
+                <td>
+                    {{ post.time_stamp|date:'M d Y' }}
+                    {{ post.time_stamp|time:"H:i" }}
+                </td>
+                <td>
+                    {{ post.text|truncatechars:50|censor:'плохое'}}
+                </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2> Постов нет </h2>
+    {% endif %}
+{% endblock content %}
